@@ -4,6 +4,7 @@ let grid = [];
 let stack = [];
 
 var maze_graphics;
+var player_graphics;
 
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
@@ -19,6 +20,8 @@ function setup() {
     }
 
     maze_graphics = createGraphics(window.innerWidth, window.innerHeight);
+    player_graphics = createGraphics(window.innerWidth, window.innerHeight);
+    setup_player();
     generate_maze();
 }
 
@@ -55,8 +58,12 @@ function generate_maze() {
 
 function draw() {
     image(maze_graphics, 0, 0);
+    image(player_graphics, 0, 0);
+
     // Change background color here if needed
     maze_graphics.background(110);
+
+    update_player_graphics();
 
     // Display the final result
     for (let i = 0; i < grid.length; i++) {
@@ -68,6 +75,10 @@ function keyPressed() {
     if (keyCode === 32) { // Check if the key pressed is the space key
         generate_maze();
     }
+}
+
+function keyReleased() {
+    triggeredBefore = 0;
 }
 
 function index(i, j) {
@@ -94,4 +105,8 @@ function remove_walls(a, b) {
         a.walls[2] = false;
         b.walls[0] = false;
     }
+}
+
+function is_wall_present(player_position, wall_position) {
+    return grid[player_position].walls[wall_position];
 }
