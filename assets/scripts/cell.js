@@ -38,31 +38,31 @@ class Cell {
     show() {
         let x = this.i * cell_size;
         let y = this.j * cell_size;
-        stroke(0);
-        strokeWeight(4);
+        maze_graphics.stroke(0);
+        maze_graphics.strokeWeight(4);
 
         // Top wall
         if (this.walls[0]) {
-            line(x, y, x + cell_size, y);
+            maze_graphics.line(x, y, x + cell_size, y);
         }
         // Right wall
         if (this.walls[1]) {
-            line(x + cell_size, y, x + cell_size, y + cell_size);
+            maze_graphics.line(x + cell_size, y, x + cell_size, y + cell_size);
         }
         // Bottom wall
         if (this.walls[2]) {
-            line(x + cell_size, y + cell_size, x, y + cell_size);
+            maze_graphics.line(x + cell_size, y + cell_size, x, y + cell_size);
         }
         // Left wall
         if (this.walls[3]) {
-            line(x, y + cell_size, x, y);
+            maze_graphics.line(x, y + cell_size, x, y);
         }
 
         // Highlight current cell
         if (this.visited) {
-            noStroke();
-            noFill();
-            rect(x, y, cell_size, cell_size);
+            maze_graphics.noStroke();
+            maze_graphics.noFill();
+            maze_graphics.rect(x, y, cell_size, cell_size);
         }
     }
 }

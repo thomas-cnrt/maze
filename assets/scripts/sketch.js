@@ -3,6 +3,8 @@ let cell_size = 20; // Width and height of each cell
 let grid = [];
 let stack = [];
 
+var maze_graphics;
+
 function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     cols = floor(width / cell_size);
@@ -16,6 +18,7 @@ function setup() {
         }
     }
 
+    maze_graphics = createGraphics(window.innerWidth, window.innerHeight);
     generate_maze();
 }
 
@@ -51,8 +54,9 @@ function generate_maze() {
 }
 
 function draw() {
+    image(maze_graphics, 0, 0);
     // Change background color here if needed
-    background(110);
+    maze_graphics.background(110);
 
     // Display the final result
     for (let i = 0; i < grid.length; i++) {
