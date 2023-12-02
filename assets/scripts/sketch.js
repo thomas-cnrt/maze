@@ -23,6 +23,7 @@ function setup() {
     player_graphics = createGraphics(window.innerWidth, window.innerHeight);
     setup_player();
     generate_maze();
+    add_randomness_to_maze();
 }
 
 function generate_maze() {
@@ -52,6 +53,44 @@ function generate_maze() {
             remove_walls(current, next);
         } else {
             stack.pop();
+        }
+    }
+}
+
+function add_randomness_to_maze() {
+
+    let center_maze_range = {
+        min_x: floor(cols * 0.25),
+        max_x: floor(cols * 0.75),
+        min_y: floor(rows * 0.25),
+        max_y: floor(rows * 0.75),
+    };
+
+    for (let i = 0; i < 50; i++) {
+        let random_col = floor(random(center_maze_range.min_x, center_maze_range.max_x));
+        let random_row = floor(random(center_maze_range.min_y, center_maze_range.max_y));
+        console.log("random_row : " + random_row + " | random_col: " + random_col);
+        let random_cell = grid[index(random_col, random_row)];
+        console.log("random_cell: " + random_cell.i + " " + random_cell.j);
+
+        // Get a random direction (0: top, 1: right, 2: bottom, 3: left)
+        let random_direction = floor(random(0, 4));
+
+        // Get the neighboring cell in the direction of the random wall index
+        let neighbor = null;
+        if (random_direction === 0 && random_cell.j > 0) {
+            neighbor = grid[index(random_cell.i, random_cell.j - 1)];
+        } else if (random_direction === 1 && random_cell.i < cols - 1) {
+            neighbor = grid[index(random_cell.i + 1, random_cell.j)];
+        } else if (random_direction === 2 && random_cell.j < rows - 1) {
+            neighbor = grid[index(random_cell.i, random_cell.j + 1)];
+        } else if (random_direction === 3 && random_cell.i > 0) {
+            neighbor = grid[index(random_cell.i - 1, random_cell.j)];
+        }
+
+        // Remove the random wall
+        if (neighbor) {
+            remove_walls(random_cell, neighbor);
         }
     }
 }
