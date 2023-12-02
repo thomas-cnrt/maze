@@ -55,6 +55,14 @@ function update_player_graphics() {
     player_graphics.ellipse(draw_position_x, draw_position_y, cell_size / 2);
 }
 
+function check_player_reach_exit() {
+    if (player_position === index(cols - 1, rows - 1) && show_alert) {
+        show_alert = false;
+        if (confirm("Congratulations! You reached the end of the maze!")) {
+            restart();
+        }
+    }
+}
 
 function getIndex(x, y) {
     return x + y * cols;

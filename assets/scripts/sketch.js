@@ -5,11 +5,12 @@ let stack = [];
 
 var maze_graphics;
 var player_graphics;
+var show_alert = true;
 
 function setup() {
-    createCanvas(window.innerWidth, window.innerHeight);
-    cols = floor(width / cell_size);
-    rows = floor(height / cell_size);
+    cols = floor((window.innerWidth - 10) / cell_size);
+    rows = floor((window.innerHeight - 10) / cell_size);
+    createCanvas(cols * cell_size, rows * cell_size);
 
     // Initialize grid with cells
     for (let j = 0; j < rows; j++) {
@@ -19,8 +20,8 @@ function setup() {
         }
     }
 
-    maze_graphics = createGraphics(window.innerWidth, window.innerHeight);
-    player_graphics = createGraphics(window.innerWidth, window.innerHeight);
+    maze_graphics = createGraphics(cols * cell_size, rows * cell_size);
+    player_graphics = createGraphics(cols * cell_size, rows * cell_size);
     setup_player();
     generate_maze();
     add_randomness_to_maze();
@@ -102,18 +103,34 @@ function draw() {
     // Change background color here if needed
     maze_graphics.background(110);
 
-    update_player_graphics();
+    maze_graphics.strokeWeight(2);
+    maze_graphics.fill(255, 0, 0);
+    maze_graphics.stroke(10, 60, 10);
+    maze_graphics.ellipse(cols * cell_size - cell_size / 2, rows * cell_size - cell_size / 2, cell_size / 2);
 
     // Display the final result
     for (let i = 0; i < grid.length; i++) {
         grid[i].show();
     }
+
+    update_player_graphics();
+    check_player_reach_exit();
 }
 
 function keyPressed() {
     if (keyCode === 32) { // Check if the key pressed is the space key
-        generate_maze();
+        restart();
     }
+}
+
+function restart() {
+    // Reinitialize player and history
+    player_position = 0;
+    position_history = [0];
+
+    show_alert = true;
+    // Regenerate the maze
+    generate_maze();
 }
 
 function keyReleased() {
