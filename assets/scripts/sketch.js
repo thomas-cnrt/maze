@@ -7,6 +7,12 @@ var maze_graphics;
 var player_graphics;
 var show_alert = true;
 
+const TRACK_COLOR = "#404040";
+const PLAYER_COLOR = "#00FF00";
+const PLAYER_HISTORY_COLOR = "#009600";
+const EXIT_COLOR = "#FF0000";
+
+
 function setup() {
     cols = floor((window.innerWidth - 10) / cell_size);
     rows = floor((window.innerHeight - 10) / cell_size);
@@ -101,10 +107,10 @@ function draw() {
     image(player_graphics, 0, 0);
 
     // Change background color here if needed
-    maze_graphics.background(110);
+    maze_graphics.background(TRACK_COLOR);
 
     maze_graphics.strokeWeight(2);
-    maze_graphics.fill(255, 0, 0);
+    maze_graphics.fill(EXIT_COLOR);
     maze_graphics.stroke(10, 60, 10);
     maze_graphics.ellipse(cols * cell_size - cell_size / 2, rows * cell_size - cell_size / 2, cell_size / 2);
 

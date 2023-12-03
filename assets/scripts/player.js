@@ -1,7 +1,6 @@
 let player_position;
 let position_history = [0];
 var last_pressed_ms;
-const TRACK_COLOR = "#000064"; // Change this color as needed
 
 function setup_player() {
     player_position = 0; // Set the initial player position
@@ -39,7 +38,7 @@ function update_player_graphics() {
 
     for (let i = 0; i < position_history.length - 1; i++) {
         player_graphics.strokeWeight(cell_size / 3);
-        player_graphics.stroke(TRACK_COLOR);
+        player_graphics.stroke(PLAYER_HISTORY_COLOR);
         var i1 = position_history[i];
         var x1 = get_position_x(i1) * cell_size + cell_size / 2;
         var y1 = get_position_y(i1) * cell_size + cell_size / 2;
@@ -50,7 +49,7 @@ function update_player_graphics() {
     }
 
     player_graphics.strokeWeight(2);
-    player_graphics.fill(0, 0, 255);
+    player_graphics.fill(PLAYER_COLOR);
     player_graphics.stroke(10, 60, 10);
     player_graphics.ellipse(draw_position_x, draw_position_y, cell_size / 2);
 }
